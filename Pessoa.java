@@ -4,7 +4,10 @@ class Pessoa {
 
    Pessoa () {
    }
-
+   Pessoa(String nome){
+       //this.nome = nome;
+	this(nome,0);
+   }
    Pessoa (String nome, int idade) {
       this.nome = nome;
       this.idade = idade;
@@ -25,18 +28,4 @@ class Pessoa {
    int getIdade () {
       return this.idade;
    }
-}
-
-class Alo {
-  public static void main (String args[]) {
-    System.out.println("Alo Mundo!");
-
-    Pessoa ana;
-    ana = new Pessoa();
-    ana.setNome("Ana");
-    ana.setIdade(25);
-    System.out.println(ana.getNome());
-    System.out.println(ana.getIdade());
-
-  }
 }
