@@ -1,22 +1,24 @@
-puclic class Conjunto{
+public class Conjunto{
 	int tamanho;
 	int[] elementos;
 	int index = 0;
 
-	puclic Conjunto(int tamanho){
+	public Conjunto(int tamanho){
+		this.tamanho = tamanho;
 		elementos = new int[this.tamanho];
 	}
 
-	void inserirElemento(int elemento){
+	boolean inserirElemento(int elemento){
 		if(verificarPertinencia(elemento) == false){
-			elementos[this.index] = elemento;
+			this.elementos[this.index] = elemento;
 			this.index++;
+			return true;
 		}
-		
+		return false;	
 	}
 
 	boolean verificarPertinencia(int elemento){
-		for(int i = 0;i<this.tamanho;i++){
+		for(int i = 0;i<this.index;i++){
 			if(elemento == elementos[i]){
 				return true;
 			}
@@ -25,16 +27,17 @@ puclic class Conjunto{
 	}
 
 	boolean subconjunto(Conjunto A){
+		//This está contido em A
 		boolean pertence;
-		for(int i = 0;i<A.getTamanho();i++){
+		for(int i = 0;i<A.getIndex();i++){
 			pertence = false;
-			for(int j = 0;j<this.tamanho; j++){
+			for(int j = 0;j<this.index; j++){
 				if(A.getElemento(i) == this.elementos[j]){
 					pertence = true;
 				}
 			}
 			if(pertence == false){
-				return false
+				return false;
 			}
 		}
 		return true;
@@ -42,13 +45,15 @@ puclic class Conjunto{
 
 	Conjunto conjuntoUnião(Conjunto A){
 		Conjunto uniao;
-		int tamanho = A.getTamanho() + this.tamanho;
+		int tamanho = A.getIndex() + this.index + 1;
 		uniao = new Conjunto(tamanho);
-		for(int i = 0;i<A.getTamanho();i++){
+		int index = 0;
+		for(int i = 0;i<A.getIndex();i++){
 			uniao.inserirElemento(A.getElemento(i));
+
 		}
-		for(int j = 0;i<this.tamanho;j++){
-			uniao.inserirElemento(this.elementos[i]);
+		for(int j = 0;j<this.index;j++){
+			uniao.inserirElemento(this.elementos[j]);
 		}
 		return uniao;
 
@@ -56,10 +61,10 @@ puclic class Conjunto{
 
 	Conjunto conjuntoIntersecao(Conjunto A){
 		Conjunto intersecao;
-		int tamanho = A.getTamanho() + this.tamanho;
+		int tamanho = A.getIndex() + this.index + 1;
 		intersecao = new Conjunto(tamanho);
-		for(int i = 0;i<A.getTamanho();i++){
-			for(int j = 0;j<this.tamanho;j++){
+		for(int i = 0;i<A.getIndex();i++){
+			for(int j = 0;j<this.index;j++){
 				if(A.getElemento(i) == this.elementos[j]){
 					intersecao.inserirElemento(this.elementos[j]);
 				}
@@ -69,21 +74,28 @@ puclic class Conjunto{
 	}
 
 	Conjunto conjuntoDiferenca(Conjunto A){
+		//This conjunto sem o elementos de A
 		Conjunto intersecao = conjuntoIntersecao(A);
-		Conjunto diferenca;
+		Conjunto diferenca = new Conjunto(this.index - intersecao.getIndex() + 1);
 		boolean pertence;
-		for(int i = 0;i<intersecao.getTamanho();i++){
-			for(int j = 0;j<this.tamanho;j++){
-				if(intersecao.getElemento(i) == this.elementos[j]){
-					
+		for(int i = 0;i<intersecao.getIndex();i++){
+			for(int j = 0;j<this.index;j++){
+				if(intersecao.getElemento(i) != this.elementos[j]){
+					diferenca.inserirElemento(this.elementos[j]);
 				}
 			}
 		}
+		return diferenca;
 	}
 
 	int getTamanho(){
 		return this.tamanho;
 	}
+
+	int getIndex(){
+		return this.index;
+	}
+
 	int getElemento(int index){
 		return this.elementos[index];
 	}
