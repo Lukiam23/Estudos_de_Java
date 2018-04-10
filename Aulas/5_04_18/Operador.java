@@ -1,9 +1,7 @@
-class Operador extends Expressao{
+abstract class Operador extends Expressao{
 	Expressao esquerda, direita;
 
-	int calcular(){
-		return esquerda.calcular() + direita.calcular();
-	}
+	abstract int calcular();
 
 	void adicionar(Expressao esquerda, Expressao direita){
 		this.esquerda = esquerda;
