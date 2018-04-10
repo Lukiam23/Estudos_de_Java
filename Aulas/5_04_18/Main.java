@@ -12,6 +12,7 @@ class Main{
                 op3.adicionar(op1, op2);
                 op2.adicionar(op4, op5);
                 op6.adicionar(op1,op2);
+                op3.adicionar(op2, op6);
 
                 System.out.println(op3.calcular());
                 System.out.println(op2.calcular());
